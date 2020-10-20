@@ -5,13 +5,6 @@ var urlsToCache = [
   "/index.html",
   "/index.css",
   "/manifest.json",
-  "/fonts/poppins-v13-latin-regular.woff2",
-  "/fonts/poppins-v13-latin-regular.woff",
-  "/fonts/poppins-v13-latin-500.woff",
-  "/fonts/poppins-v13-latin-500.woff2",
-  "/fonts/poppins-v13-latin-800.woff2",
-  "/fonts/poppins-v13-latin-700.woff2",
-  "/fonts/poppins-v13-latin-600.woff2",
 ];
 
 self.addEventListener("install", function (event) {
