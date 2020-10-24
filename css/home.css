@@ -53,3 +53,46 @@
   z-index: 1;
   left: 75%;
 }
+
+#left-menu {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  background-color: transparent;
+  border: #fff 2px solid;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .face {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 300px;
+  transition: 0.5s;
+}
+.card .face .content {
+  opacity: 0.4;
+  transition: 0.5s;
+}
+.card:hover .face .content {
+  opacity: 1;
+}
+.card .face .content img {
+  position: relative;
+  left: 35%;
+  width: 30%;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(52deg)
+    brightness(104%) contrast(102%);
+}
+.card .face .content h3 {
+  color: #fff;
+}
