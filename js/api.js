@@ -1,4 +1,5 @@
 
+
 const BASE_URL = "http://api.football-data.org/v2/competitions/2001/"
 const test = "https://api.football-data.org/v2/competitions/CL/matches"
 function status(response) {
@@ -25,26 +26,31 @@ function status(response) {
  
 
   function getMatches() {
-      console.log('executed')
+      
       const req_url = BASE_URL + "matches?status=SCHEDULED";
+      fetch(req_url, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
+        console.log(data)
+      let matchesData = '';
+      data.matches.forEach(function (match) {
+          matchesData += `<h3> ${match.group} </h3>`;
+      })
+      document.getElementById('body-content').innerHTML = matchesData;
+      });
       //console.log(fetch(test).then(response => response.json()).then(data => console.log(data)));
-  $.ajax({
-      headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'},
-      url: req_url,
-      dataType : 'json',
-      type: 'GET',     
-  }).done(function(response) {
-      console.log(response)
-  })
+  // $.ajax({
+  //     headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'},
+  //     url: req_url,
+  //     dataType : 'json',
+  //     type: 'GET',     
+  // }).done(function(response) {
+  //   console.log(response.matches)
+  //     let matchesData = '';
+      
+  // })
   
     }
 
-
-
-  
-        const menu = document.getElementById('matches');
-        console.log('menu is', menu);
-        menu.addEventListener('click', function() {
+  document.getElementById('matches').addEventListener('click', function() {
             getMatches();
         })
     
