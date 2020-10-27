@@ -3,7 +3,7 @@
 <div id="background" class="row">
     <img class="logo-img" src="/assets/logo.png" alt="">
     <div id="left-menu" class="col s12 m7 l7">
-            <div class="card">
+            <div id="matches" class="card">
                 <div class="face">
                     <div class="content">
                         <img src="/assets/football.svg" alt="">
@@ -37,3 +37,18 @@
         <img src="/assets/Messi.png" alt="" class="player" id="p5">
     </div>
 </div>
+
+<div class="menu-content">
+    this is block
+</div>
+
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+       console.log('f',document.getElementById('matches'))
+       document.getElementById('matches').addEventListener('click', function() {
+           getMatches();
+       })
+});
+
+</script>
+

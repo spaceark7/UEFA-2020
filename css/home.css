@@ -18,7 +18,7 @@
   background: url("/assets/bg.jpg") no-repeat 50% 50%;
   background-size: cover;
   scroll-behavior: smooth;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .player {
   position: absolute;
