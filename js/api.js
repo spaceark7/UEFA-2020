@@ -32,10 +32,29 @@ function status(response) {
         console.log(data)
       let matchesData = '';
       data.matches.forEach(function (match) {
-          matchesData += `<h3> ${match.group} </h3>`;
+          matchesData += `<div class="mcard-container container">
+          <div class="mcard row">
+              <div class="mtimeDate col s6 m6 l6"><p>${match.utcDate}</p></div>
+              <div class="mtimeClock col s6 m6 l6"><p>${match.utcDate}</p></div>
+          </div>
+          <div class="mteam row">
+              <div class="homeTeam col s5 m5 l5">
+                  <img class='logo' src="" alt="">
+                  <h3 class="homeTeamName">${match.homeTeam.name}</h3>
+              </div>
+              <div class="versusBlock col s1 m1 l1"><h3>V</h3></div>
+              <div class="AwayTeam col s5 m5 l5">
+                  <h3 class="AwayTeamName">${match.awayTeam.name}</h3>
+                  <img class='logo' src="" alt="">            
+              </div>
+          </div>
+          <div id='small-detail' class="row"><p>${match.group}</p></div>
+      </div>`;
       })
       document.getElementById('body-content').innerHTML = matchesData;
       });
+
+
       //console.log(fetch(test).then(response => response.json()).then(data => console.log(data)));
   // $.ajax({
   //     headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'},

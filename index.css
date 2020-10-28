@@ -21,3 +21,64 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+/* Style for match data request */
+
+.mcard-container {
+  margin: 20px;
+  padding: 20px 10px;
+  max-width: 100%;
+}
+.mcard {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mtimeDate {
+  text-align: end;
+}
+.mtimeClock {
+  text-align: start;
+}
+
+.mteam {
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* height: 35px; */
+}
+.homeTeam,
+.awayTeam {
+  position: relative;
+  color: white;
+  height: 40px;
+}
+.homeTeam h3 {
+  margin: 0;
+  padding: 10px;
+  background-color: #590995;
+  font-size: 25px;
+  text-align: end;
+}
+.versusBlock {
+  background-color: teal;
+  text-align: center;
+}
+.versusBlock h3 {
+  margin: 0;
+  font-size: 25px;
+}
+.awayTeam h3 {
+  margin: 0;
+  padding: 10px;
+  background-color: #590995;
+  font-size: 25px;
+  text-align: start;
+}
+#small-detail {
+  text-align: center;
+}
