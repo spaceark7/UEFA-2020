@@ -1,7 +1,7 @@
 
 const MATCH_BASE_URL = "http://staging-api.football-data.org/v2/matches/";
 const BASE_URL = "http://api.football-data.org/v2/competitions/2001/";
-const test = "https://api.football-data.org/v2/competitions/CL/matches";
+const test = "https://api.football-data.org/v2/competitions/CL/standings";
 function status(response) {
     if (response.status !== 200) {
       console.log("Error : " + response.status);
@@ -29,7 +29,7 @@ function status(response) {
       
       const req_url = BASE_URL + "matches?status=SCHEDULED";
       fetch(req_url, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
-        console.log(data)
+      console.log(data)
       let matchesData = '';
       let time = ''
       data.matches.forEach(function (match) {
@@ -77,20 +77,25 @@ function status(response) {
   
     }
 
-  function getParticularMatch() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const idParam = urlParams.get("id");
+  function getAllTeam() {
 
-      fetch(MATCH_BASE_URL + idParam, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207',
-      'Access-Control-Allow-Origin' : '*'}}).then(status).then(json).then(function(data) {
+      fetch("http://api.football-data.org/v2/teams/18", {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
         console.log(data) 
+
       })
 
 
   }
+  function getStandings() {
 
-  document.getElementById('matches').addEventListener('click', function() {
-            getMatches();
-            
-        })
+    fetch(BASE_URL + "standings?standingType=TOTAL", {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
+      console.log(data) 
+
+
+    })
+    
+
+
+}
+ 
     

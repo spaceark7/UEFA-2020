@@ -1,4 +1,4 @@
-const CACHE_NAME = "UEFA-2020-v0";
+const CACHE_NAME = "UEFA-2020-v5";
 var urlsToCache = [
   "/",
   "/nav.html",

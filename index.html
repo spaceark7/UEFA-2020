@@ -42,16 +42,16 @@
                     </div> 
                 </div>
             </div>
-            <div class="card">
+            <div id='standings' class="card">
                 <div class="face">
                     <div class="content">
                         <img src="/assets/sports.svg" alt="">
-                    <h3>Schedule</h3>
+                    <h3>Standings</h3>
                     </div> 
                 </div>
             </div>
 
-            <div class="card">
+            <div id='teams' class="card">
                 <div class="face">
                     <div class="content">
                         <img src="/assets/statistics.svg" alt="">
@@ -98,7 +98,16 @@
         console.log("Service Worker tidak dapat berjalan di browser ini :(")
     }
     document.addEventListener('DOMContentLoaded', function() {
-       console.log(document.getElementById('matches'))
+        document.getElementById('matches').addEventListener('click', function() {
+            getMatches(); 
+        })
+        document.getElementById('teams').addEventListener('click', function() {
+            getAllTeam();
+        })
+        document.getElementById('standings').addEventListener('click', function() {
+            getStandings();
+        })
+
 });
 
 
