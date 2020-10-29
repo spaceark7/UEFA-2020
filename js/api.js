@@ -1,7 +1,7 @@
 
-
-const BASE_URL = "http://api.football-data.org/v2/competitions/2001/"
-const test = "https://api.football-data.org/v2/competitions/CL/matches"
+const MATCH_BASE_URL = "http://staging-api.football-data.org/v2/matches/";
+const BASE_URL = "http://api.football-data.org/v2/competitions/2001/";
+const test = "https://api.football-data.org/v2/competitions/CL/matches";
 function status(response) {
     if (response.status !== 200) {
       console.log("Error : " + response.status);
@@ -31,11 +31,14 @@ function status(response) {
       fetch(req_url, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
         console.log(data)
       let matchesData = '';
+      let time = ''
       data.matches.forEach(function (match) {
-          matchesData += `<div class="mcard-container container">
+        time = new Date(match.utcDate);
+          matchesData += `<div class="mcard-container">
+          <a  href="./content.html?id=${match.id}">
           <div class="mcard row">
-              <div class="mtimeDate col s6 m6 l6"><p>${match.utcDate}</p></div>
-              <div class="mtimeClock col s6 m6 l6"><p>${match.utcDate}</p></div>
+              <div class="mtimeDate col s6 m6 l6"><p>${time.toUTCString().slice(0,17)}</p></div>
+              <div class="mtimeClock col s6 m6 l6"><p>${time.toUTCString().slice(17)}</p></div>
           </div>
           <div class="mteam row">
               <div class="homeTeam col s5 m5 l5">
@@ -49,9 +52,14 @@ function status(response) {
               </div>
           </div>
           <div id='small-detail' class="row"><p>${match.group}</p></div>
-      </div>`;
+      </div> </a>`;
       })
+
       document.getElementById('body-content').innerHTML = matchesData;
+      document.getElementById('body-content').style.background= "url(assets/top-image.jpg)50% 50%";
+      document.getElementById('body-content').style.backgroundSize = "cover";
+      document.getElementById('body-content').style.visibility = "visible";
+      document.getElementById('body-content').scrollIntoView(true);
       });
 
 
@@ -69,7 +77,20 @@ function status(response) {
   
     }
 
+  function getParticularMatch() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const idParam = urlParams.get("id");
+
+      fetch(MATCH_BASE_URL + idParam, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207',
+      'Access-Control-Allow-Origin' : '*'}}).then(status).then(json).then(function(data) {
+        console.log(data) 
+      })
+
+
+  }
+
   document.getElementById('matches').addEventListener('click', function() {
             getMatches();
+            
         })
     
