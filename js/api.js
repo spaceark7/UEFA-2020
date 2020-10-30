@@ -60,6 +60,7 @@ function status(response) {
       document.getElementById('body-content').style.backgroundSize = "cover";
       document.getElementById('body-content').style.visibility = "visible";
       document.getElementById('body-content').scrollIntoView(true);
+      
       });
 
 
@@ -90,6 +91,83 @@ function status(response) {
 
     fetch(BASE_URL + "standings?standingType=TOTAL", {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
       console.log(data) 
+      let standingsData = '';
+      data.standings.forEach(function(standing) {
+        standingsData += `<div class="scard-container">
+        <h3>${standing.group}</h3>
+
+        <table class=" highlight centered">
+            <thead>
+                <th>Team</th>
+                <th>Points</th>
+                <th>GP</th>
+                <th>W</th>
+                <th>L</th>
+                <th>D</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>GD</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id='tname'>${standing.table[0].team.name}</td>
+                    <td>${standing.table[0].points}</td>
+                    <td>${standing.table[0].playedGames}</td>
+                    <td>${parseInt(standing.table[0].playedGames) - parseInt(standing.table[0].lost) - parseInt(standing.table[0].draw)}</td>
+                    <td>${standing.table[0].lost}</td>
+                    <td>${standing.table[0].draw}</td>
+                    <td>${standing.table[0].goalsFor}</td>
+                    <td>${standing.table[0].goalsAgainst}</td>
+                    <td>${standing.table[0].goalDifference}</td>
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[1].team.name}</td>
+                <td>${standing.table[1].points}</td>
+                <td>${standing.table[1].playedGames}</td>
+                <td>${standing.table[1].points/2}</td>
+                <td>${standing.table[1].lost}</td>
+                <td>${standing.table[1].draw}</td>
+                <td>${standing.table[1].goalsFor}</td>
+                <td>${standing.table[1].goalsAgainst}</td>
+                <td>${standing.table[1].goalDifference}</td>
+                    
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[2].team.name}</td>
+                <td>${standing.table[2].points}</td>
+                <td>${standing.table[2].playedGames}</td>
+                <td>${standing.table[2].points/2}</td>
+                <td>${standing.table[2].lost}</td>
+                <td>${standing.table[2].draw}</td>
+                <td>${standing.table[2].goalsFor}</td>
+                <td>${standing.table[2].goalsAgainst}</td>
+                <td>${standing.table[2].goalDifference}</td>
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[3].team.name}</td>
+                <td>${standing.table[3].points}</td>
+                <td>${standing.table[3].playedGames}</td>
+                <td>${standing.table[3].points/2}</td>
+                <td>${standing.table[3].lost}</td>
+                <td>${standing.table[3].draw}</td>
+                <td>${standing.table[3].goalsFor}</td>
+                <td>${standing.table[3].goalsAgainst}</td>
+                <td>${standing.table[3].goalDifference}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>`
+      })
+
+      document.getElementById('body-content').innerHTML = standingsData;
+      document.getElementById('body-content').style.background= "url(assets/top-image.jpg)50% 50%";
+      document.getElementById('body-content').style.backgroundSize = "cover";
+      document.getElementById('body-content').style.visibility = "visible";
+      document.getElementById('body-content').scrollIntoView(true);
 
 
     })
@@ -97,5 +175,8 @@ function status(response) {
 
 
 }
+
+
+window.addEventListener('load', function() {
  
-    
+})

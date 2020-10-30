@@ -1,4 +1,4 @@
-const CACHE_NAME = "UEFA-2020-v5";
+const CACHE_NAME = "UEFA-2020-v";
 var urlsToCache = [
   "/",
   "/nav.html",
@@ -6,10 +6,11 @@ var urlsToCache = [
   "/pages/home.html",
   "/index.css",
   "/manifest.json",
-  "/js/api.js",
   "/js/jquery-3.5.1.min.js",
   "/js/materialize.min.js",
   "/js/nav.js",
+  "/js/api.js",
+  
 ];
 
 self.addEventListener("install", function (event) {

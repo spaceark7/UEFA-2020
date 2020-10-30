@@ -45,16 +45,24 @@ document.addEventListener("DOMContentLoaded", function () {
   if (page == "") {
     page = "home";
   }
+  if (page == 'teams') {
+    document.getElementById('body-content').style.visibility = 'hidden';
+  }
+  console.log("hot", page)
   loadPage(page);
 
   function loadPage(page) {
+    if (page == 'teams') {
+      document.getElementById('body-content').style.visibility = 'hidden';
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4) {
-        var content = document.querySelector("#body-content");
+        var content = document.querySelector(".main-content");
         if (this.status == 200) {
           content.innerHTML = xhttp.responseText;
         } else if (this.status == 404) {
+          alert("Page not found")
           content.innerHTML = "<p>Konten Tidak Dapat Ditemukan </p>";
         } else {
           content.innerHTML = "<p>Uppss.... Halaman tidak dapat diakses</p>";
