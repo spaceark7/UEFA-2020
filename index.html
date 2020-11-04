@@ -41,11 +41,11 @@
 
 
 
-<h1>Notification API</h1>
-<button onclick="showNotifikasiRequireInteraction()">Notifikasi Sederhana dengan Title dan Body</button>
+<!-- <h1>Notification API</h1>
+<button onclick="showNotifikasiSederhana()">Notifikasi Sederhana dengan Title dan Body</button>
 </div>
 <button onclick="showNotifikasiIkon()">Notifikasi dengan Gambar Ikon</button>
-<button onclick="showNotifikasiGambar()">Notifikasi dengan Gambar Latar</button>
+<button onclick="showNotifikasiGambar()">Notifikasi dengan Gambar Latar</button> -->
 <!-- Koding Fungsi -->
 <script src="js/materialize.min.js"></script>
 <script src="js/nav.js"></script>
@@ -55,46 +55,85 @@
 
 <script>
     // Register Service Worker
-    if('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js').then(function(){
-                console.log("Service Worker Sukses!")
-            }).catch(function(){
-                console.log('Service Worker Gagal!')
-            })
-        })
-    }
-    else {
-        console.log("Service Worker tidak dapat berjalan di browser ini :(")
-    }
-
-    
-
-        // Periksa fitur Notification API
-    if ("Notification" in window) {
-        requestPermission();
+  // Periksa service worker
+  if (!('serviceWorker' in navigator)) {
+      console.log("Service worker tidak didukung browser ini.");
     } else {
-        console.error("Browser tidak mendukung notifikasi.");
+      registerServiceWorker();
+      requestPermission();
     }
-
-    // Meminta ijin menggunakan Notification API
+    // Register service worker
+    function registerServiceWorker() {
+      return navigator.serviceWorker.register('service-worker.js')
+        .then(function (registration) {
+          console.log('Registrasi service worker berhasil.');
+          return registration;
+        })
+        .catch(function (err) {
+          console.error('Registrasi service worker gagal.', err);
+        });
+    }
     function requestPermission() {
-      Notification.requestPermission().then(function (result) {
-        if (result === "denied") {
-          console.log("Fitur notifikasi tidak diijinkan.");
-          return;
-        } else if (result === "default") {
-          console.error("Pengguna menutup kotak dialog permintaan ijin.");
-          return;
-        }
-        
-        console.log("Fitur notifikasi diijinkan.");
-      });
+if ('Notification' in window) {
+  Notification.requestPermission().then(function (result) {
+    if (result === "denied") {
+      console.log("Fitur notifikasi tidak diijinkan.");
+      return;
+    } else if (result === "default") {
+      console.error("Pengguna menutup kotak dialog permintaan ijin.");
+      return;
     }
     
+    if (('PushManager' in window)) {
+    navigator.serviceWorker.getRegistration().then(function(registration) {
+        registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array("BICkhYIdR2ohz6e3F1w0yvL7vacXAkj6s8-dsNf8Ur9aA3AlhyOtPB3zbfyPlPAw2OCiapI0_ebMNrmvfbHc3zA")
+        }).then(function(subscribe) {
+            console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
+            console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(
+                null, new Uint8Array(subscribe.getKey('p256dh')))));
+            console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(
+                null, new Uint8Array(subscribe.getKey('auth')))));
+        }).catch(function(e) {
+            console.error('Tidak dapat melakukan subscribe ', e.message);
+        });
+    });
+}
+    
+  });
 
 
+}
+    }
 
+
+    function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
+    function showNotifikasiSederhana() {
+    const title = 'Notifikasi Sederhana';
+    const options = {
+        'body': 'Ini adalah konten notifikasi. \nBisa menggunakan baris baru.',
+    }
+    if (Notification.permission === 'granted') {
+        navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification(title, options);
+        });
+    } else {
+        console.error('FItur notifikasi tidak diijinkan.');
+    }
+}
 
 
    //test
@@ -113,6 +152,7 @@
 }
 
 function showNotifikasiIkon() {
+    console.log("executed button")
     const title = 'Notifikasi Sederhana';
     const options = {
         'body': 'Ini adalah konten notifikasi dengan gambar ikon.',
