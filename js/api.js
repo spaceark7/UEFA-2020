@@ -29,8 +29,43 @@ function status(response) {
   function getMatches() {
       
       const req_url = BASE_URL + "matches?status=SCHEDULED";
+
+
+      if ('caches' in window) {
+        caches.match(req_url).then(function(response) {
+           let matchesData =''
+           data.matches.forEach(function (match) {
+              time = new Date(match.utcDate);
+                matchesData += `<div class="mcard-container">
+                <a  href="./content.html?id=${match.id}">
+                <div class="mcard row">
+                    <div class="mtimeDate col s6 m6 l6"><p>${time.toUTCString().slice(0,17)}</p></div>
+                    <div class="mtimeClock col s6 m6 l6"><p>${time.toUTCString().slice(17)}</p></div>
+                </div>
+                <div class="mteam row">
+                    <div class="homeTeam col s5 m5 l5">
+                        <img class='logo' src="" alt="">
+                        <h3 class="homeTeamName">${match.homeTeam.name}</h3>
+                    </div>
+                    <div class="versusBlock col s1 m1 l1"><h3>V</h3></div>
+                    <div class="AwayTeam col s5 m5 l5">
+                        <h3 class="AwayTeamName">${match.awayTeam.name}</h3>
+                        <img class='logo' src="" alt="">            
+                    </div>
+                </div>
+                <div id='small-detail' class="row"><p>${match.group}</p></div>
+                </div> </a>`;
+           })
+           document.getElementById('body-content').innerHTML = matchesData;
+           document.getElementById('body-content').style.background= "url(assets/top-image.jpg)50% 50%";
+           document.getElementById('body-content').style.backgroundSize = "cover";
+           document.getElementById('body-content').style.visibility = "visible";
+           document.getElementById('body-content').scrollIntoView(true);
+        }).catch(error)
+      }
+
+
       fetch(req_url, {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
-      console.log(data)
       let matchesData = '';
       let time = ''
       data.matches.forEach(function (match) {
@@ -62,7 +97,7 @@ function status(response) {
       document.getElementById('body-content').style.visibility = "visible";
       document.getElementById('body-content').scrollIntoView(true);
       
-      });
+      }).catch(error);
 
 
       //console.log(fetch(test).then(response => response.json()).then(data => console.log(data)));
@@ -80,6 +115,41 @@ function status(response) {
     }
 
   function getAllTeam() {
+    const ALLTEAMURL = "http://api.football-data.org/v2/competitions/2001/teams";;
+    if('caches' in window) {
+      caches.match(ALLTEAMURL).then(function(data) {
+        let teamsData = ''
+        data.teams.forEach(function(team) {
+          teamsData += ` <div class="col s12 m6 l6" id="team-card">
+          <a class="link" href="./team.html?id=${team.id}">
+          <h2 class="header">${team.name}</h2>
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="${team.crestUrl}">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <p>Team name: ${team.shortName}</p>
+                <p>Origin: ${team.area.name}</p>
+                <p>Official Stadium: ${team.venue}</p>
+                <p>Website: <a href="${team.website}">${team.website}</a></p>
+              </div>
+            </div>
+          </div>
+          </a>
+        </div>`;
+        })
+        document.getElementById('body-content').innerHTML= teamsData;
+        document.getElementById('body-content').style.background= "url(assets/top-image.jpg)50% 50%";
+        document.getElementById('body-content').style.backgroundSize = "cover";
+        document.getElementById('body-content').style.visibility = "visible";
+        document.getElementById('body-content').scrollIntoView(true);
+      }).catch(error)
+    }
+
+
+
+
 
       fetch("http://api.football-data.org/v2/competitions/2001/teams", {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
         console.log(data) 
@@ -110,7 +180,7 @@ function status(response) {
         document.getElementById('body-content').style.backgroundSize = "cover";
         document.getElementById('body-content').style.visibility = "visible";
         document.getElementById('body-content').scrollIntoView(true);
-      })
+      }).catch(error)
      
 
   }
@@ -185,6 +255,87 @@ function status(response) {
   }
 
   function getStandings() {
+
+    if('caches' in window) {
+      caches.match(BASE_URL + "standings?standingType=TOTAL").then(function (response) {
+        let standingsData = '';
+      data.standings.forEach(function(standing) {
+        standingsData += `<div class="scard-container">
+        <h3>${standing.group}</h3>
+
+        <table class=" highlight centered">
+            <thead>
+                <th>Team</th>
+                <th>Points</th>
+                <th>GP</th>
+                <th>W</th>
+                <th>L</th>
+                <th>D</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>GD</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id='tname'>${standing.table[0].team.name}</td>
+                    <td>${standing.table[0].points}</td>
+                    <td>${standing.table[0].playedGames}</td>
+                    <td>${parseInt(standing.table[0].playedGames) - parseInt(standing.table[0].lost) - parseInt(standing.table[0].draw)}</td>
+                    <td>${standing.table[0].lost}</td>
+                    <td>${standing.table[0].draw}</td>
+                    <td>${standing.table[0].goalsFor}</td>
+                    <td>${standing.table[0].goalsAgainst}</td>
+                    <td>${standing.table[0].goalDifference}</td>
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[1].team.name}</td>
+                <td>${standing.table[1].points}</td>
+                <td>${standing.table[1].playedGames}</td>
+                <td>${standing.table[1].points/2}</td>
+                <td>${standing.table[1].lost}</td>
+                <td>${standing.table[1].draw}</td>
+                <td>${standing.table[1].goalsFor}</td>
+                <td>${standing.table[1].goalsAgainst}</td>
+                <td>${standing.table[1].goalDifference}</td>
+                    
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[2].team.name}</td>
+                <td>${standing.table[2].points}</td>
+                <td>${standing.table[2].playedGames}</td>
+                <td>${standing.table[2].points/2}</td>
+                <td>${standing.table[2].lost}</td>
+                <td>${standing.table[2].draw}</td>
+                <td>${standing.table[2].goalsFor}</td>
+                <td>${standing.table[2].goalsAgainst}</td>
+                <td>${standing.table[2].goalDifference}</td>
+                </tr>
+    
+                <tr>
+                <td id='tname'>${standing.table[3].team.name}</td>
+                <td>${standing.table[3].points}</td>
+                <td>${standing.table[3].playedGames}</td>
+                <td>${standing.table[3].points/2}</td>
+                <td>${standing.table[3].lost}</td>
+                <td>${standing.table[3].draw}</td>
+                <td>${standing.table[3].goalsFor}</td>
+                <td>${standing.table[3].goalsAgainst}</td>
+                <td>${standing.table[3].goalDifference}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>`
+      })
+      document.getElementById('body-content').innerHTML = standingsData;
+      document.getElementById('body-content').style.background= "url(assets/top-image.jpg)50% 50%";
+      document.getElementById('body-content').style.backgroundSize = "cover";
+      document.getElementById('body-content').style.visibility = "visible";
+      document.getElementById('body-content').scrollIntoView(true);
+      }).catch(error)
+    }
 
     fetch(BASE_URL + "standings?standingType=TOTAL", {headers: {'X-Auth-Token' : '85e85d47f2724735945be2d1675c7207'}}).then(status).then(json).then(function(data) {
       console.log(data) 
@@ -267,7 +418,7 @@ function status(response) {
       document.getElementById('body-content').scrollIntoView(true);
 
 
-    })
+    }).catch(error)
     
 
 

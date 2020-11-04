@@ -16,6 +16,7 @@ var dbPromised = idb.open("uefa-2020", 1, function(upgradeDb) {
       })
       .then(function() {
         console.log("Team berhasil di simpan.");
+        M.toast({html : "Berhasil disimpan"})
       });
   }
 
@@ -29,6 +30,7 @@ var dbPromised = idb.open("uefa-2020", 1, function(upgradeDb) {
       })
       .then(function() {
         console.log("Team berhasil di hapus.");
+        M.toast({html : "Team telah dihapus"})
         history.back()
       });
   }
