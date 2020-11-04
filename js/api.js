@@ -37,7 +37,6 @@ function status(response) {
            data.matches.forEach(function (match) {
               time = new Date(match.utcDate);
                 matchesData += `<div class="mcard-container">
-                <a  href="./content.html?id=${match.id}">
                 <div class="mcard row">
                     <div class="mtimeDate col s6 m6 l6"><p>${time.toUTCString().slice(0,17)}</p></div>
                     <div class="mtimeClock col s6 m6 l6"><p>${time.toUTCString().slice(17)}</p></div>
@@ -71,7 +70,7 @@ function status(response) {
       data.matches.forEach(function (match) {
         time = new Date(match.utcDate);
           matchesData += `<div class="mcard-container">
-          <a  href="./content.html?id=${match.id}">
+        
           <div class="mcard row">
               <div class="mtimeDate col s6 m6 l6"><p>${time.toUTCString().slice(0,17)}</p></div>
               <div class="mtimeClock col s6 m6 l6"><p>${time.toUTCString().slice(17)}</p></div>
