@@ -54,6 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadPage(page) {
     if (page == 'teams') {
       document.getElementById('body-content').style.visibility = 'hidden';
+      getAllTeam();
+    }
+    else if (page == 'saved'){
+      document.getElementById('body-content').style.visibility = 'hidden';
+      getSavedTeams()
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
