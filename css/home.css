@@ -25,25 +25,25 @@
   height: 500px;
 }
 #p5 {
-  bottom: 0;
+  bottom: -10%;
   transform: scaleX(-1);
-  right: 5%;
+  right: 10%;
   z-index: 1;
 }
 #p4 {
-  bottom: 0;
+  bottom: -10%;
   transform: scaleX(-1);
   left: 60%;
 }
 
 #p3 {
-  bottom: 0;
-  right: -5%;
+  bottom: -10%;
+  right: 0%;
   z-index: 1;
 }
 #p2 {
-  bottom: 0%;
-  height: 700px;
+  bottom: -10%;
+  height: 650px;
   left: 60%;
 }
 
@@ -117,4 +117,88 @@
 }
 .card:hover .face .content h3 {
   color: black;
+}
+
+@media (max-width: 1024px) {
+  #p5 {
+    height: 400px;
+  }
+  #p4 {
+    height: 400px;
+  }
+  
+  #p3 {
+    height: 400px;
+  }
+  #p2 {
+   height: 500px;
+  }
+  
+  #p1 {
+    height: 250px;
+    bottom: 25%;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  #p5 {
+    height: 350px;
+  }
+  #p4 {
+    height: 350px;
+  }
+  
+  #p3 {
+    height: 350px;
+    right: -5%;
+  }
+  #P1 {
+    height: 250px;
+    bottom: 20%;
+  }
+  .logo-img {
+    top: 15%;
+    left: 70%;
+  }
+  #matches, #standings, #teams {
+    color: black;
+    background-color: white;
+    
+  }
+  .card .face .content {
+    opacity: 1;
+  }
+  .card .face .content h3 {
+    color: black;
+    opacity: 1;
+  }
+  .card .face .content img {
+    filter: none;
+  }
+
+}
+
+@media (max-width: 428px) {
+  #p5 {
+    display: none;
+  }
+  #p4 {
+    display: none;
+  }
+  
+  #p3 {
+    display: none;
+  }
+  #p2 {
+    display: none;
+  }
+  #p1 {
+    display: none;
+  }
+
+  .logo-img {
+    left: 30%;
+  }
+
 }

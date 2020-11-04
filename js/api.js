@@ -85,7 +85,7 @@ function status(response) {
         console.log(data) 
         let teamsData = ''
         data.teams.forEach(function(team) {
-          teamsData += ` <div class="col s6 m6 l6" id="team-card">
+          teamsData += ` <div class="col s12 m6 l6" id="team-card">
           <a class="link" href="./team.html?id=${team.id}">
           <h2 class="header">${team.name}</h2>
           <div class="card horizontal">
