@@ -34,9 +34,8 @@ var urlsToCache = [
   "/logo192.png",
   "/logo256.png",
   "/logo512.png",
-  "/lg.png",
-  "/r1.png",
-  "/icon.png",
+  "/logo144.png",
+
   
 ];
 
